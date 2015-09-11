@@ -7,7 +7,7 @@ function formatJson(json) {
 exports.testLeafFoo = function(test) {
     var tgt = new reggae.Target('foo.d')
     test.deepEqual(JSON.parse(tgt.toJson()),
-                   {type: "fixed",
+                   {"type": "fixed",
                     command: {},
                     outputs: ["foo.d"],
                     dependencies: {type: "fixed", targets: []},
@@ -23,5 +23,28 @@ exports.testLeafBar = function(test) {
                     outputs: ["bar.d"],
                     dependencies: {type: "fixed", targets: []},
                     implicits: {type: "fixed", targets: []}})
+    test.done()
+}
+
+
+exports.testBuild = function(test) {
+    var build = new reggae.Build(new reggae.Target('foo', 'dmd -offoo foo.d', [new reggae.Target('foo.d')]))
+    test.deepEqual(JSON.parse(build.toJson()),
+                              [{"type": "fixed",
+                                "command": {"type": "shell",
+                                            "cmd": "dmd -offoo foo.d"},
+                                "outputs": ["foo"],
+                                "dependencies": {"type": "fixed",
+                                                 "targets":
+                                                 [{"type": "fixed",
+                                                   "command": {},
+                                                   "outputs": ["foo.d"],
+                                                   "dependencies": {
+                                                       "type": "fixed",
+                                                       "targets": []},
+                                                   "implicits": {
+                                                       "type": "fixed",
+                                                       "targets": []}}]},
+                                "implicits": {"type": "fixed", "targets": []}}])
     test.done()
 }
