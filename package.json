@@ -1,12 +1,19 @@
 {
     "name": "reggae-js",
     "version": "0.0.1",
-    "repository": "https://github.com/atilaneves/reggae-js",
+    "repository": {
+        "url": "https://github.com/atilaneves/reggae-js",
+        "type": "git"
+    },
+    "description": "A javascript interface / front-end to the reggae meta-build system",
     "license": "BSD",
     "dependencies": {
         "nodeunit": "~>0.9.0"
     },
     "scripts": {
         "test": "node_modules/nodeunit/bin/nodeunit test.js"
+    },
+    "bin": {
+        "reggae_json_build": "./bin/reggae_json_build"
     }
 }
