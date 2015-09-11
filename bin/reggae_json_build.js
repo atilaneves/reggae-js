@@ -3,7 +3,7 @@
 var reggae = require('reggae')
 
 function getBuild() {
-    var reggaefile = require('reggaefile.js')
+    var reggaefile = require('reggaefile')
     var builds = []
 
     for(var key in reggaefile) {
@@ -11,10 +11,11 @@ function getBuild() {
     }
 
     if(builds.length > 1) throw "Too many Build objects"
-    if(builds.length == 0) throw "Could not find Build object"
+    if(builds.length == 0)
+        throw "Could not find Build object in:\n" + reggaefile.toSource()
 
     return builds[0]
 }
 
 
-console.log(JSON.stringify(getBuild()))
+console.log(getBuild().toJson())
