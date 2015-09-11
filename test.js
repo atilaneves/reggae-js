@@ -1,4 +1,4 @@
-var reggae = require('./reggae')
+var reggae = require('./lib/reggae')
 
 
 exports.testLeafFoo = function(test) {
