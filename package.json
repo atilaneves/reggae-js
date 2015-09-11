@@ -1,5 +1,6 @@
 {
-    "name": "reggae",
+    "name": "reggae-js",
+    "version": "0.0.1",
     "repository": "https://github.com/atilaneves/reggae-js",
     "license": "BSD",
     "dependencies": {

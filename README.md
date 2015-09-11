@@ -9,4 +9,4 @@ A javascript interface / front-end to [the reggae meta-build system](https://git
 Installation
 ------------
 
-Add it to your application's package.json and `nmp install`
+Add it to your application's `package.json` (the name is `reggae-js`) and `nmp install`
