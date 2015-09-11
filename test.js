@@ -74,3 +74,65 @@ exports.testProjectDirInclude = function(test) {
                         "targets": []}})
     test.done()
 }
+
+
+exports.testLinkFixed = function(test) {
+    var mainObj = new reggae.Target('main.o',
+                                    'dmd -I$project/src -c $in -of$out',
+                                    new reggae.Target('src/main.d'))
+    var mathsObj = new reggae.Target('maths.o',
+                                     'dmd -c $in -of$out',
+                                     new reggae.Target('src/maths.d'))
+    var app = reggae.link({exe_name: 'myapp',
+                           dependencies: [mainObj, mathsObj],
+                           flags: '-L-M'})
+    var bld = new reggae.Build(app)
+
+    test.deepEqual(JSON.parse(bld.toJson()),
+                  [{"type": "fixed",
+                    "command": {"type": "link", "flags": "-L-M"},
+                    "outputs": ["myapp"],
+                    "dependencies": {
+                        "type": "fixed",
+                        "targets":
+                        [{"type": "fixed",
+                          "command": {"type": "shell",
+                                      "cmd": "dmd -I$project/src -c $in -of$out"},
+                          "outputs": ["main.o"],
+                          "dependencies": {"type": "fixed",
+                                           "targets": [
+                                               {"type": "fixed",
+                                                "command": {}, "outputs": ["src/main.d"],
+                                                "dependencies": {
+                                                    "type": "fixed",
+                                                    "targets": []},
+                                                "implicits": {
+                                                    "type": "fixed",
+                                                    "targets": []}}]},
+                          "implicits": {
+                              "type": "fixed",
+                              "targets": []}},
+                         {"type": "fixed",
+                          "command": {"type": "shell", "cmd":
+                                      "dmd -c $in -of$out"},
+                          "outputs": ["maths.o"],
+                          "dependencies": {
+                              "type": "fixed",
+                              "targets": [
+                                  {"type": "fixed",
+                                   "command": {}, "outputs": ["src/maths.d"],
+                                   "dependencies": {
+                                       "type": "fixed",
+                                       "targets": []},
+                                   "implicits": {
+                                       "type": "fixed",
+                                       "targets": []}}]},
+                          "implicits": {
+                              "type": "fixed",
+                              "targets": []}}]},
+                    "implicits": {
+                        "type": "fixed",
+                        "targets": []}}])
+
+    test.done()
+}
