@@ -15,5 +15,10 @@
     },
     "bin": {
         "reggae_json_build": "./bin/reggae_json_build"
-    }
+    },
+    "files": [
+        "bin",
+        "lib"
+    ]
+
 }
