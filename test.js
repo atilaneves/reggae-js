@@ -163,3 +163,34 @@ exports.testLinkDynamic = function(test) {
 
     test.done()
 }
+
+
+exports.testStaticLib = function(test) {
+    var lib = reggae.staticLibrary('libstuff.a',
+                                   {flags: '-I$project/src', src_dirs: ['src']})
+    var app = reggae.link({exe_name: 'myapp',
+                           'dependencies': lib,
+                           flags: '-L-M'})
+    var bld = new reggae.Build(app)
+
+    test.deepEqual(JSON.parse(bld.toJson()),
+                   [{"type": "fixed",
+                     "command": {"type": "link", "flags": "-L-M"},
+                     "outputs": ["myapp"],
+                     "dependencies": {
+                         "type": "dynamic",
+                         "func": "staticLibrary",
+                         "name": "libstuff.a",
+                         "src_dirs": ["src"],
+                         "exclude_dirs": [],
+                         "src_files": [],
+                         "exclude_files": [],
+                         "flags": "-I$project/src",
+                         "includes": [],
+                         "string_imports": []},
+                     "implicits": {
+                         "type": "fixed",
+                         "targets": []}}])
+
+    test.done()
+}

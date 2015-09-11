@@ -114,3 +114,17 @@ function DynamicDependencies(funcName, args) {
         return result
     }
 }
+
+
+exports.staticLibrary = function(name, options) {
+    options.name = name
+    options.src_dirs = options.src_dirs || []
+    options.exclude_dirs = options.exclude_dirs || []
+    options.src_files = options.src_files || []
+    options.exclude_files = options.exclude_files || []
+    options.flags = options.flags || ""
+    options.includes = options.includes || []
+    options.string_imports = options.string_imports || []
+
+    return new DynamicDependencies('staticLibrary', options)
+}
