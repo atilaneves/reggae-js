@@ -48,3 +48,29 @@ exports.testBuild = function(test) {
                                 "implicits": {"type": "fixed", "targets": []}}])
     test.done()
 }
+
+exports.testProjectDirInclude = function(test) {
+    var mainObj = new reggae.Target('main.o',
+                                    'dmd -I$project/src -c $in -of$out',
+                                    new reggae.Target('src/main.d'))
+    var obj = JSON.parse(mainObj.toJson())
+    test.deepEqual(JSON.parse(mainObj.toJson()),
+                   {"type": "fixed",
+                    "command": {"type": "shell",
+                                "cmd": "dmd -I$project/src -c $in -of$out"},
+                    "outputs": ["main.o"],
+                    "dependencies": {"type": "fixed",
+                                     "targets": [
+                                         {"type": "fixed",
+                                          "command": {}, "outputs": ["src/main.d"],
+                                          "dependencies": {
+                                              "type": "fixed",
+                                              "targets": []},
+                                          "implicits": {
+                                              "type": "fixed",
+                                              "targets": []}}]},
+                    "implicits": {
+                        "type": "fixed",
+                        "targets": []}})
+    test.done()
+}
