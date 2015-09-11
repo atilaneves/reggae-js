@@ -56,7 +56,7 @@ function jsonifiable(arg, klass) {
 }
 
 
-exports.Build = function (target) {
+function Build(target) {
     this.targets = [target]
 
     this.toJson = function() {
@@ -68,6 +68,7 @@ exports.Build = function (target) {
     }
 }
 
+exports.Build = Build
 
 exports.link = function (options) {
     options.flags = options.flags || ""
