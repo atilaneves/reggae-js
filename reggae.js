@@ -128,3 +128,29 @@ exports.staticLibrary = function(name, options) {
 
     return new DynamicDependencies('staticLibrary', options)
 }
+
+
+exports.scriptlike = function(options) {
+
+    options.flags = options.flags || ""
+    options.includes = options.includes || []
+    options.string_imports = options.string_imports || []
+    options.link_with = options.link_with || new FixedDependencies([])
+
+    return new Dynamic('scriptLike', options)
+}
+
+
+function Dynamic(funcName, args) {
+    this.isDependency = true
+    this.funcName = funcName
+    this.args = args
+
+    this.jsonify = function() {
+        var result = { type: 'dynamic', func: this.funcName}
+        for (var key in this.args) {
+            result[key] = this.args[key].jsonify ? this.args[key].jsonify() : this.args[key]
+        }
+        return result
+    }
+}
