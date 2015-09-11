@@ -1,0 +1,9 @@
+{
+    "name": "reggae",
+    "repository": "https://github.com/atilaneves/reggae-js",
+    "license": "BSD",
+    "dependencies": {
+        "nodeunit": "~>0.9.0"
+    }
+
+}
