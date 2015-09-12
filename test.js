@@ -196,21 +196,21 @@ exports.testStaticLib = function(test) {
 }
 
 
-// exports.testScriptlike = function(test) {
-//     var app = reggae.scriptlike({src_name: 'src/main.d',
-//                                  exe_name: 'leapp',
-//                                  flags: '-g',
-//                                  includes: ['src']})
-//     var bld = new reggae.Build(app)
+exports.testScriptlike = function(test) {
+    var app = reggae.scriptlike({src_name: 'src/main.d',
+                                 exe_name: 'leapp',
+                                 flags: '-g',
+                                 includes: ['src']})
+    var bld = new reggae.Build(app)
 
-//     test.deepEqual(JSON.parse(bld.toJson()),
-//                    [{"type": "dynamic",
-//                      "func": "scriptlike",
-//                      "src_name": "src/main.d",
-//                      "exe_name": "leapp",
-//                      "link_with": {"type": "fixed", "targets": []},
-//                      "flags": "-g",
-//                      "includes": ["src"],
-//                      "string_imports": []}])
-//     test.done()
-// }
+    test.deepEqual(JSON.parse(bld.toJson()),
+                   [{"type": "dynamic",
+                     "func": "scriptlike",
+                     "src_name": "src/main.d",
+                     "exe_name": "leapp",
+                     "link_with": {"type": "fixed", "targets": []},
+                     "flags": "-g",
+                     "includes": ["src"],
+                     "string_imports": []}])
+    test.done()
+}
