@@ -214,3 +214,55 @@ exports.testScriptlike = function(test) {
                      "string_imports": []}])
     test.done()
 }
+
+exports.testTwoTargets = function(test) {
+    objs1 = reggae.objectFiles({flags: '-I$project/src',
+                                src_dirs: ['src']})
+    app1 = reggae.link({exe_name: 'app1',
+                        dependencies: objs1,
+                        flags: '-L-M'})
+    objs2 = reggae.objectFiles({flags: '-I$project/other',
+                                src_dirs: ['other', 'yetanother']})
+    app2 = reggae.link({exe_name: 'app2',
+                        dependencies: objs2})
+
+    bld = new reggae.Build(app1, app2)
+
+    test.deepEqual(JSON.parse(bld.toJson()),
+                   [{"type": "fixed",
+          "command": {"type": "link", "flags": "-L-M"},
+          "outputs": ["app1"],
+          "dependencies": {
+              "type": "dynamic",
+              "func": "objectFiles",
+              "src_dirs": ["src"],
+              "exclude_dirs": [],
+              "src_files": [],
+              "exclude_files": [],
+              "flags": "-I$project/src",
+              "includes": [],
+              "string_imports": []},
+          "implicits": {
+              "type": "fixed",
+              "targets": []}},
+         {"type": "fixed",
+          "command": {"type": "link", "flags": ""},
+          "outputs": ["app2"],
+          "dependencies": {
+              "type": "dynamic",
+              "func": "objectFiles",
+              "src_dirs": ["other", "yetanother"],
+              "exclude_dirs": [],
+              "src_files": [],
+              "exclude_files": [],
+              "flags": "-I$project/other",
+              "includes": [],
+              "string_imports": []},
+          "implicits": {
+              "type": "fixed",
+              "targets": []}}]
+                  )
+
+
+    test.done()
+}

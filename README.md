@@ -27,9 +27,9 @@ essentially the same API as the D version but in JavaScript syntax. A simple
 C build could be written like this:
 
     var reggae = require('reggae-js')
-    var main_obj = new reggae.Target('main.o', 'gcc -I$project/src -c $in -o $out', new reggae.Target('src/main.c'))
-    var maths_obj = new regage.Target('maths.o', 'gcc -c $in -o $out', new reggae.Target('src/maths.c'))
-    var app = new reggae.Target('myapp', 'gcc -o $out $in', [main_obj, maths_obj])
+    var mainObj = new reggae.Target('main.o', 'gcc -I$project/src -c $in -o $out', new reggae.Target('src/main.c'))
+    var mathsObj = new regage.Target('maths.o', 'gcc -c $in -o $out', new reggae.Target('src/maths.c'))
+    var app = new reggae.Target('myapp', 'gcc -o $out $in', [mainObj, mathsObj])
     exports.bld = new reggae.Build(app)
 
 This should be contained in a file named `reggaefile.js` in the project's root directory.
@@ -40,7 +40,7 @@ Most builds will probably not resort to low-level primitives as above. A better 
 that C build would be:
 
     var reggae = require('reggae-js')
-    var objs =  reggae.object_files({flags: '-I$project/src', src_dirs: ['src']})
+    var objs =  reggae.objectFiles({flags: '-I$project/src', src_dirs: ['src']})
     var app = link({exe_name: 'app', dependencies: objs})
     exports.bld = new reggae.Build(app)
 
