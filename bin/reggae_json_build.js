@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var reggae = require('reggae')
+var reggae = require('reggae-js')
 
 function getBuild() {
     var reggaefile = require('reggaefile')
