@@ -1,6 +1,6 @@
 {
     "name": "reggae-js",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "repository": {
         "url": "https://github.com/atilaneves/reggae-js",
         "type": "git"
@@ -14,7 +14,7 @@
         "test": "node_modules/nodeunit/bin/nodeunit test.js"
     },
     "bin": {
-        "reggae_json_build": "./bin/reggae_json_build.js"
+        "reggae_json_build.js": "./bin/reggae_json_build.js"
     },
     "files": [
         "bin",
