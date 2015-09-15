@@ -6,7 +6,7 @@
         "type": "git"
     },
     "description": "A javascript interface / front-end to the reggae meta-build system",
-    "license": "BSD",
+    "license": "BSD-3-Clause",
     "dependencies": {
         "nodeunit": "~>0.9.0"
     },
